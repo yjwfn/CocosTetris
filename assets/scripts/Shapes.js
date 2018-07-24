@@ -16,11 +16,13 @@ var Shape = function(){
     this.startY = 0;
     this.endX = 0;
     this.endY = 0;
+    this.offsetX = 0;
+    this.offsetY = 0;
     this.color = COLORS.GRAY
 };
 
 
-function createShare(points, color){
+function createShare(points, color, offsetX = 0, offsetY = 0){
     var startX = 0;
     var startY = 0;
     var endY = 0;
@@ -43,6 +45,8 @@ function createShare(points, color){
     sh.endX = endX;
     sh.endY = endY;
     sh.color = color;
+    sh.offsetX = offsetX;
+    sh.offsetY = offsetY;
     
     return sh;
 }
@@ -54,27 +58,27 @@ var SHAPES = [
     /*
         * * * * 
     */
-    // createShare( 
-    //     [   
-    //         0, 0,
-    //         1, 0, 
-    //         2, 0, 
-    //         3, 0 
-    //     ], Common.BLUE),
+    createShare( 
+        [   
+            0, 0,
+            1, 0, 
+            2, 0, 
+            3, 0 
+        ], COLORS.BLUE, -1.5),
 
 
-    // /*
-    //        *
-    //       * 
-    //      * 
-    //     * 
-    // */
-    // createShare( 
-    //     [   0, 0, 
-    //         0, 1, 
-    //         0, 2, 
-    //         0, 3 
-    //     ] , Common.CYAN),
+    /*
+           *
+          * 
+         * 
+        * 
+    */
+    createShare( 
+        [   0, 0, 
+            0, 1, 
+            0, 2, 
+            0, 3 
+        ] , COLORS.CYAN, 0,  -1.5),
         
     /*
           *

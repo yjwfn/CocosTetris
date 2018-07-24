@@ -9,29 +9,37 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 var Common = require("Common");
 
-function pointToValue(x, y, scale = 1){
+function pointToValue(x, y, options = {}){
             /*
             x y *   BOARD_HEXAGON_HEIGHT 0                     
                     BOARD_HEXAGON_MUP_X  BOARD_HEXAGON_MUP_Y 
             */
+           var scale = options.scale ? options.scale : 1;
+           var offsetX = options.offsetX ? options.offsetX: 0;
+           var offsetY = options.offsetY ? options.offsetY : 0;
+           
            var width = scale * Common.DEFAULT_BOARD_HEXAGON_WIDTH;
            var height = scale * Common.DEFAULT_BOARD_HEXAGON_HEIGHT;
 
            var point  = cc.p(0, 0);
-           point.x =  x * height + y * (height * Common.BOARD_HEXAGON_MUP_X) 
-           point.y =  y * (height * Common.BOARD_HEXAGON_MUP_Y);
+           point.x =  x * height + y * (height * Common.BOARD_HEXAGON_MUP_X) + offsetX
+           point.y =  y * (height * Common.BOARD_HEXAGON_MUP_Y) + offsetY;
 
             return  point;
 }
 
 
 //see https://evanw.github.io/lightgl.js/docs/matrix.html
-function valueToPoint(x, y, scale = 1){
+function valueToPoint(x, y, options = {}){
   
+  var scale = options.scale ? options.scale : 1;
+  var offsetX = options.offsetX ? options.offsetX: 0;
+  var offsetY = options.offsetY ? options.offsetY : 0;
+
   var width = scale * Common.DEFAULT_BOARD_HEXAGON_WIDTH;
   var height = scale * Common.DEFAULT_BOARD_HEXAGON_HEIGHT;
 
-  
+
    var m = [
          height, 0, 0, 0,
         (height * Common.BOARD_HEXAGON_MUP_X),(height *  Common.BOARD_HEXAGON_MUP_Y), 0, 0,
@@ -66,8 +74,8 @@ function valueToPoint(x, y, scale = 1){
   for (var i = 0; i < 16; i++) r[i] /= det;
   
   var point  = cc.p(0, 0);
-  point.x =  parseInt(x * r[0] + y * r[4])
-  point.y =  parseInt(y * r[5]);
+  point.x =  parseInt(x * r[0] + y * r[4]) + offsetX
+  point.y =  parseInt(y * r[5]) + offsetY; 
  
    return  point;
 }

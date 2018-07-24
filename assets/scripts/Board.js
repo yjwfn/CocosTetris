@@ -16,7 +16,7 @@ var Board = cc.Class({
     },
     put: function(shape){
 
-        
+
      
         return false;
     },
@@ -41,7 +41,7 @@ var Board = cc.Class({
                 var width = Common.DEFAULT_BOARD_HEXAGON_WIDTH  * scale;
                 var height = Common.DEFAULT_BOARD_HEXAGON_HEIGHT  * scale;
                    
-                var posiiton = Transform.pointToValue(i, j, scale);
+                var posiiton = Transform.pointToValue(i, j, {scale: scale});
                 var sprite =  cc.instantiate(this.hexagonPrefab);
                 sprite.x = posiiton.x;
                 sprite.y = posiiton.y;

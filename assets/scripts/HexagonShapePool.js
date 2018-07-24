@@ -22,7 +22,7 @@ cc.Class({
             default: null,
             type: cc.Node
         },
-        
+
         hexagonPrefab: {
             default: null,
             type: cc.Prefab,
@@ -37,20 +37,19 @@ cc.Class({
         // cc.log("shape");
 
         var shape = Shapes.getShareAtIndex();
-        cc.log(shape.color);
+ 
+    
         for(var pointIndex = 0; pointIndex < shape.points.length; pointIndex += 2){
             var points = shape.points;
             var x = points[pointIndex];
             var y = points[pointIndex + 1];
 
             var sprite =  cc.instantiate(this.hexagonPrefab);
-            var posiiton = Transform.pointToValue(x, y);
-            sprite.x = posiiton.x;
-            sprite.y = posiiton.y;
+            var position = Transform.pointToValue(x + shape.offsetX, y + shape.offsetY);
+            sprite.x = position.x;
+            sprite.y = position.y;
             var hexagon = sprite.getComponent("Hexagon");
             hexagon.color = shape.color;
-        
-
             this.node.addChild(sprite);
         }
     },
