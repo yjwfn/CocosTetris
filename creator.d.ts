@@ -882,7 +882,7 @@ declare module cc {
 	!#en
 	Moves a Node object x,y pixels by modifying its position property.                                  <br/>
 	x and y are relative to the position of the object.                                                     <br/>
-	Several MoveBy actions can be concurrently called, and the resulting                                  <br/>
+	Several MoveBy actions can be concurrentl caylled, and the resulting                                  <br/>
 	movement will be the sum of individual movements.
 	!#zh 移动指定的距离。
 	@param duration duration in seconds
