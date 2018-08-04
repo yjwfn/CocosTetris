@@ -19,10 +19,10 @@ cc.Class({
         _initX: 0,
         _initY: 0,
         _initScale: 1,
-        _shape: null,
         _touchStart: false,
         _touchEnd: false,
         index: 0, 
+        shape: null,
         board: {
             default: null,
             type: cc.Node
@@ -43,15 +43,16 @@ cc.Class({
             var y = points[pointIndex + 1];
 
             var sprite =  cc.instantiate(this.hexagonPrefab);
-            var position = Transform.pointToValue(x + shape.offsetX, y + shape.offsetY);
+            var position = Transform.pointToValue(x + shape.offsetX, y + shape.offsetY, {scale: 0.8});
             sprite.x = position.x;
             sprite.y = position.y;
             var hexagon = sprite.getComponent("Hexagon");
             hexagon.color = shape.color;
+            hexagon.scale = 0.8;
             this.node.addChild(sprite);
         }
 
-        this._shape = shape;
+        this.shape = shape;
     },
     // LIFE-CYCLE CALLBACKS:
 
@@ -75,9 +76,12 @@ cc.Class({
                 this._initY = this.node.y;
                 this._initScale = this.node.scaleX;
             }
-
-            var scaleUp = cc.scaleTo(0.1,1.5);
-            var moveUp = cc.moveTo(0.1, cc.p(event.getLocationX(), event.getLocationY()));
+            // var playScene = cc.director.getRunningScene();
+            var locationInScene = this.node.parent.convertToNodeSpaceAR(cc.p(event.getLocationX(), event.getLocationY()));
+            // cc.log("TouchStart: x-> %f, y-> %f == Node: x -> %f, y -> %f", event.getLocationX(), event.getLocationY(), this.node.x, this.node.y);
+            // cc.log("LocationInScene: x-> %f, y-> %f", locationInScene.x, locationInScene.y);
+            var scaleUp = cc.scaleTo(0.1,1);
+            var moveUp = cc.moveTo(0.1, cc.p(this.node.x, locationInScene.y + this.node.height / 2));
             
             this.node.runAction(cc.spawn(scaleUp, moveUp));
         
@@ -85,15 +89,27 @@ cc.Class({
         }, this);
 
         this.node.on(cc.Node.EventType.TOUCH_MOVE, function(event){
+           if(!this._touchStart){
+                return false;
+           }
+
            
-            
+
+           var locationInScene = this.node.parent.convertToNodeSpaceAR(cc.p(event.getLocationX(), event.getLocationY()));
+
+           this.node.x = locationInScene.x;
+           this.node.y = locationInScene.y + this.node.height / 2;
+
+           cc.log("Move node to x: %f, y: %f", this.node.x, this.node.y);
+           this.board.getComponent("Board").hover(this);
+           return true;
         },this);
 
         var touchEnd = function(event){
             if(this._touchEnd || !this._touchStart){
                 return;
             }
-
+            
 
             this._touchEnd = true;
             var scaleDown = cc.scaleTo(0.1, this._initScale);
@@ -111,5 +127,8 @@ cc.Class({
       
     },
 
-    // update (dt) {},
+    update (dt) {
+
+
+    },
 });

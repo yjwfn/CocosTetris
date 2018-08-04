@@ -9,10 +9,10 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 
 var BOARD_RADIUS = 4;
-var DEFAULT_BOARD_HEXAGON_WIDTH = 61 ;
-var DEFAULT_BOARD_HEXAGON_HEIGHT = 67 ;
+var DEFAULT_BOARD_HEXAGON_WIDTH = 61.0;
+var DEFAULT_BOARD_HEXAGON_HEIGHT = 67.0 ;
 var BOARD_HEXAGON_MUP_X =  0.5;
-var BOARD_HEXAGON_MUP_Y =  (Math.sqrt(3) * 0.5);
+var BOARD_HEXAGON_MUP_Y =  (Math.sqrt(3.0) * 0.5);
 
 var COLORS_OFFSET = 2;
 var COLORS = {

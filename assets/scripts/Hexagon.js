@@ -16,6 +16,17 @@ var Hexagon = cc.Class({
         color: "",    
     },
 
+    isEmpty: function(){
+        return this.color == COLORS.GRAY;
+    },
+    setHover: function(hover){
+        if(hover){
+            this.setSpriteFrameByColor(COLORS.RED);
+        }else{
+            this.setSpriteFrameByColor(this.color);
+        }
+    },
+
     setSpriteFrameByColor: function(color){
         if(color){
             cc.loader.loadRes(color, cc.SpriteFrame, function(err, spriteFrame){

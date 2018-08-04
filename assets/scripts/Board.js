@@ -9,19 +9,88 @@ var Board = cc.Class({
     
     },
     properties: {
+        _hexgaons: {
+            default: {},
+        },
+        _hexagonsHover: {
+            default: {},
+        },
         hexagonPrefab: {
             default: null,
             type: cc.Prefab,
         }
     },
-    put: function(shape){
+    buildKey: function(x, y){
+        return x + "_" + y;
+    },
+    parseKey: function(key){
+        var index = key.indexOf("_");
+        var x = parseInt(key.substring(0, index));
+        var y = parseInt(key.substring(index + 1));
 
+        return cc.p(x, y);
+    },
+    findMatchHexagon: function(hexagonShapePool){
+        var hexaongs = hexagonShapePool.node.children;
 
-     
+        var matches = {};
+        var matcheKeys = [];
+        var matchCount = 0;
+        for(var index = 0; index < hexaongs.length; index++){
+            var hex = hexaongs[index];
+            var pointInWorld = hexagonShapePool.node.convertToWorldSpace(cc.p(hex.x, hex.y));
+            var pointInBoard = this.node.convertToNodeSpaceAR(pointInWorld);
+            var hexIndexInBoard = Transform.valueToPoint(pointInBoard.x, pointInBoard.y, {scale: 0.8});
+            
+            cc.log("hitTest:origin(%f, %f) world(%f, %f), board(%f, %f), index(%d, %d)",hex.x, hex.y,  pointInWorld.x, pointInWorld.y, pointInBoard.x, pointInBoard.y, hexIndexInBoard.x, hexIndexInBoard.y);
+            var key = this.buildKey(hexIndexInBoard.x, hexIndexInBoard.y);
+            if(this._hexgaons[key]){
+                matches[key] = hex;
+                matcheKeys[matchCount++] = key;
+            }
+        }
+       
+
+        matches["keys"] = matcheKeys;
+    
+        return matches;
+    }
+    ,
+    put: function(hexagonShapePool){
+        
+
+        
         return false;
     },
+    hover: function(hexagonShapePool){
+        var matchers = this.findMatchHexagon(hexagonShapePool);
+        var keys = matchers["keys"];
+        var matched = keys.length == hexagonShapePool.shape.points.length / 2;
+   
 
- 
+        if(matched){
+            var hexSet = Object.assign({}, matchers, this._hexagonsHover);
+            for(var k in hexSet){
+                this.setHoverForHexagon(this._hexgaons[k], !!matchers[k]);
+            }
+
+            this._hexagonsHover = matchers;
+        }else{
+            for(var k in this._hexagonsHover){
+                this.setHoverForHexagon(this._hexgaons[k], false);
+            }
+
+            this._hexagonsHover = {};
+        }
+    },
+    setHoverForHexagon(hexagon, hover){
+        if(!hexagon){
+            return;
+        }
+        var hexagonCnp = hexagon.getComponent("Hexagon");
+        hexagonCnp.setHover(hover);
+    }
+    ,
     onLoad:function () {
         this.node.width = this.width;
         this.node.height = this.height;
@@ -37,7 +106,7 @@ var Board = cc.Class({
                     continue;
  
                
-                var scale = 0.8;    
+                var scale = 1;    
                 var width = Common.DEFAULT_BOARD_HEXAGON_WIDTH  * scale;
                 var height = Common.DEFAULT_BOARD_HEXAGON_HEIGHT  * scale;
                    
@@ -50,7 +119,11 @@ var Board = cc.Class({
                 hexagon.color = Common.COLORS.GRAY;
                 this.node.addChild(sprite);
 
-                cc.log("positon: %f, %f, size: %d, %d", posiiton.x, posiiton.y, width, height);
+                var key = this.buildKey(i, j);
+                this._hexgaons[key] = sprite;
+
+                var reverseIndex = Transform.valueToPoint(posiiton.x, posiiton.y, {scale: scale});
+                cc.log("index: %d,%d <--> reverseIndex: %d, %d", i, j, reverseIndex.x, reverseIndex.y);
             }
         }
 

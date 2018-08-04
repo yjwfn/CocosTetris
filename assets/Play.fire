@@ -59,13 +59,19 @@
       },
       {
         "__id__": 5
+      },
+      {
+        "__id__": 8
+      },
+      {
+        "__id__": 11
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 17
+        "__id__": 14
       }
     ],
     "_prefab": null,
@@ -138,8 +144,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
+      "width": 480,
+      "height": 480
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -165,92 +171,28 @@
       "__id__": 3
     },
     "_enabled": true,
+    "_hexgaons": {},
+    "_hexagonsHover": {},
     "hexagonPrefab": {
       "__uuid__": "ab44efd2-2fe6-463a-9afa-65d3310fcab7"
     }
   },
   {
     "__type__": "cc.Node",
-    "_name": "BottomPoolLayout",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 2
-    },
-    "_children": [
-      {
-        "__id__": 6
-      },
-      {
-        "__id__": 9
-      },
-      {
-        "__id__": 12
-      }
-    ],
-    "_tag": -1,
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 15
-      },
-      null,
-      {
-        "__id__": 16
-      }
-    ],
-    "_prefab": null,
-    "_id": "c8RmgG5hBFt4YM42vb+w4X",
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 480,
-      "height": 300
-    },
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": -330
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_opacityModifyRGB": false,
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Node",
     "_name": "ShapePool",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 5
+      "__id__": 2
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 7
+        "__id__": 6
       },
       {
-        "__id__": 8
+        "__id__": 7
       }
     ],
     "_prefab": null,
@@ -272,7 +214,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 146.66666666666666,
-      "height": 600
+      "height": 300
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -280,8 +222,8 @@
     "_scaleY": 0.5,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -156.66666666666669,
-      "y": 0
+      "x": -156.66666669999998,
+      "y": -405
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -295,15 +237,15 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 6
+      "__id__": 5
     },
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 5,
-    "_left": 46.66666666666666,
+    "_alignFlags": 12,
+    "_left": 46.66666663333335,
     "_right": 200,
-    "_top": 0,
+    "_top": 77136,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
@@ -321,12 +263,16 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 6
+      "__id__": 5
     },
     "_enabled": true,
     "_initX": 0,
     "_initY": 0,
+    "_initScale": 1,
+    "_touchStart": false,
+    "_touchEnd": false,
     "index": 0,
+    "shape": null,
     "board": {
       "__id__": 3
     },
@@ -339,17 +285,17 @@
     "_name": "ShapePool",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 5
+      "__id__": 2
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 10
+        "__id__": 9
       },
       {
-        "__id__": 11
+        "__id__": 10
       }
     ],
     "_prefab": null,
@@ -371,7 +317,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 146.66666666666666,
-      "height": 600
+      "height": 300
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -379,8 +325,8 @@
     "_scaleY": 0.5,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -2.842170943040401e-14,
-      "y": 0
+      "x": 0,
+      "y": -405
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -394,18 +340,18 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 9
+      "__id__": 8
     },
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 21,
+    "_alignFlags": 20,
     "_left": 0,
     "_right": 0,
-    "_top": 0,
+    "_top": 480,
     "_bottom": 0,
     "_verticalCenter": 0,
-    "_horizontalCenter": -2.842170943040401e-14,
+    "_horizontalCenter": 0,
     "_isAbsLeft": true,
     "_isAbsRight": true,
     "_isAbsTop": true,
@@ -420,12 +366,16 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 9
+      "__id__": 8
     },
     "_enabled": true,
     "_initX": 0,
     "_initY": 0,
+    "_initScale": 1,
+    "_touchStart": false,
+    "_touchEnd": false,
     "index": 1,
+    "shape": null,
     "board": {
       "__id__": 3
     },
@@ -438,17 +388,17 @@
     "_name": "ShapePool",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 5
+      "__id__": 2
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 13
+        "__id__": 12
       },
       {
-        "__id__": 14
+        "__id__": 13
       }
     ],
     "_prefab": null,
@@ -470,7 +420,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 146.66666666666666,
-      "height": 600
+      "height": 300
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -478,8 +428,8 @@
     "_scaleY": 0.5,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 156.66666666666663,
-      "y": 0
+      "x": 156.6666667,
+      "y": -405
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -493,15 +443,15 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 12
+      "__id__": 11
     },
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 5,
+    "_alignFlags": 36,
     "_left": 0,
-    "_right": 46.666666666666714,
-    "_top": 0,
+    "_right": 46.666666633333335,
+    "_top": 1290,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 160,
@@ -519,75 +469,22 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 12
+      "__id__": 11
     },
     "_enabled": true,
     "_initX": 0,
     "_initY": 0,
+    "_initScale": 1,
+    "_touchStart": false,
+    "_touchEnd": false,
     "index": 2,
+    "shape": null,
     "board": {
       "__id__": 3
     },
     "hexagonPrefab": {
       "__uuid__": "ab44efd2-2fe6-463a-9afa-65d3310fcab7"
     }
-  },
-  {
-    "__type__": "cc.Widget",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 5
-    },
-    "_enabled": true,
-    "isAlignOnce": true,
-    "_target": null,
-    "_alignFlags": 44,
-    "_left": 0,
-    "_right": 0,
-    "_top": 0,
-    "_bottom": 0,
-    "_verticalCenter": 0,
-    "_horizontalCenter": 0,
-    "_isAbsLeft": true,
-    "_isAbsRight": true,
-    "_isAbsTop": true,
-    "_isAbsBottom": true,
-    "_isAbsHorizontalCenter": true,
-    "_isAbsVerticalCenter": true,
-    "_originalWidth": 0,
-    "_originalHeight": 0
-  },
-  {
-    "__type__": "cc.Layout",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 5
-    },
-    "_enabled": true,
-    "_layoutSize": {
-      "__type__": "cc.Size",
-      "width": 480,
-      "height": 300
-    },
-    "_resize": 2,
-    "_N$layoutType": 1,
-    "_N$padding": 0,
-    "_N$cellSize": {
-      "__type__": "cc.Size",
-      "width": 40,
-      "height": 40
-    },
-    "_N$startAxis": 0,
-    "_N$paddingLeft": 10,
-    "_N$paddingRight": 10,
-    "_N$paddingTop": 0,
-    "_N$paddingBottom": 0,
-    "_N$spacingX": 10,
-    "_N$spacingY": 0,
-    "_N$verticalDirection": 1,
-    "_N$horizontalDirection": 0
   },
   {
     "__type__": "cc.Canvas",
