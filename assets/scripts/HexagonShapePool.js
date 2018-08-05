@@ -71,11 +71,10 @@ cc.Class({
             }
              
             this._touchStart = true;
-            if(this._initX == 0 && this._initY == 0){
-                this._initX = this.node.x;
-                this._initY = this.node.y;
-                this._initScale = this.node.scaleX;
-            }
+            this._initX = this.node.x;
+            this._initY = this.node.y;
+            this._initScale = this.node.scaleX;
+
             // var playScene = cc.director.getRunningScene();
             var locationInScene = this.node.parent.convertToNodeSpaceAR(cc.p(event.getLocationX(), event.getLocationY()));
             // cc.log("TouchStart: x-> %f, y-> %f == Node: x -> %f, y -> %f", event.getLocationX(), event.getLocationY(), this.node.x, this.node.y);
@@ -84,8 +83,6 @@ cc.Class({
             var moveUp = cc.moveTo(0.1, cc.p(this.node.x, locationInScene.y + this.node.height / 2));
             
             this.node.runAction(cc.spawn(scaleUp, moveUp));
-        
-            
         }, this);
 
         this.node.on(cc.Node.EventType.TOUCH_MOVE, function(event){
@@ -94,13 +91,12 @@ cc.Class({
            }
 
            
-
            var locationInScene = this.node.parent.convertToNodeSpaceAR(cc.p(event.getLocationX(), event.getLocationY()));
 
            this.node.x = locationInScene.x;
            this.node.y = locationInScene.y + this.node.height / 2;
 
-           cc.log("Move node to x: %f, y: %f", this.node.x, this.node.y);
+        //    cc.log("Move node to x: %f, y: %f", this.node.x, this.node.y);
            this.board.getComponent("Board").hover(this);
            return true;
         },this);
@@ -110,14 +106,28 @@ cc.Class({
                 return;
             }
             
-
             this._touchEnd = true;
-            var scaleDown = cc.scaleTo(0.1, this._initScale);
-            var moveDown = cc.moveTo(0.1, cc.p(this._initX, this._initY));
-            var callback = cc.callFunc(function(){
+            var board =  this.board.getComponent("Board");
+            var result = board.put(this);
+
+            if(!result){
+                this.node.stopAllActions();
+                var scaleDown = cc.scaleTo(0.1, this._initScale);
+                var moveDown = cc.moveTo(0.1, cc.p(this._initX, this._initY));
+                var callback = cc.callFunc(function(){
+                    this._touchStart = this._touchEnd = false;
+                }, this);
+                this.node.runAction(cc.sequence(cc.spawn(scaleDown, moveDown), callback));
+            }else{
+                this.node.removeAllChildren();
+                this.node.x = this._initX;
+                this.node.y = this._initY;
+                this.node.scaleX = this._initScale;
+                this.node.scaleY = this._initScale;
+                this.recreate();
                 this._touchStart = this._touchEnd = false;
-            }, this);
-            this.node.runAction(cc.sequence(cc.spawn(scaleDown, moveDown), callback));
+            }
+
         };
         this.node.on(cc.Node.EventType.TOUCH_END, touchEnd, this);
         this.node.on(cc.Node.EventType.TOUCH_CANCEL, touchEnd, this);

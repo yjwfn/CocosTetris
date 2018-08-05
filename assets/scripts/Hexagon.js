@@ -21,12 +21,12 @@ var Hexagon = cc.Class({
     },
     setHover: function(hover){
         if(hover){
-            this.setSpriteFrameByColor(COLORS.RED);
+            this.node.opacity = 100;
         }else{
-            this.setSpriteFrameByColor(this.color);
+            this.node.opacity = 255;
         }
     },
-
+    
     setSpriteFrameByColor: function(color){
         if(color){
             cc.loader.loadRes(color, cc.SpriteFrame, function(err, spriteFrame){
