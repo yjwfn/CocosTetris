@@ -64,8 +64,11 @@ cc.Class({
         
         //TODO 事件冲突解决
         this.node.on(cc.Node.EventType.TOUCH_START, function(event){
-            cc.log("Touch start for shape")
-          
+
+            var board =  this.board.getComponent("Board");
+            var checkPutIn = board.checkPutIn(this);
+            cc.log("checkPutIn: " + checkPutIn);
+            
             if(this._touchStart){
                 return;
             }
@@ -76,13 +79,13 @@ cc.Class({
             this._initScale = this.node.scaleX;
 
             // var playScene = cc.director.getRunningScene();
-            var locationInScene = this.node.parent.convertToNodeSpaceAR(cc.p(event.getLocationX(), event.getLocationY()));
+            // var locationInScene = this.node.parent.convertToNodeSpaceAR(cc.p(event.getLocationX(), event.getLocationY()));
             // cc.log("TouchStart: x-> %f, y-> %f == Node: x -> %f, y -> %f", event.getLocationX(), event.getLocationY(), this.node.x, this.node.y);
             // cc.log("LocationInScene: x-> %f, y-> %f", locationInScene.x, locationInScene.y);
             var scaleUp = cc.scaleTo(0.1,1);
-            var moveUp = cc.moveTo(0.1, cc.p(this.node.x, locationInScene.y + this.node.height / 2));
+            // var moveUp = cc.moveTo(0.1, cc.p(this.node.x, locationInScene.y + this.node.height / 2));
             
-            this.node.runAction(cc.spawn(scaleUp, moveUp));
+            this.node.runAction(scaleUp);
         }, this);
 
         this.node.on(cc.Node.EventType.TOUCH_MOVE, function(event){
@@ -94,7 +97,7 @@ cc.Class({
            var locationInScene = this.node.parent.convertToNodeSpaceAR(cc.p(event.getLocationX(), event.getLocationY()));
 
            this.node.x = locationInScene.x;
-           this.node.y = locationInScene.y + this.node.height / 2;
+           this.node.y = locationInScene.y ; //+ this.node.height / 2
 
         //    cc.log("Move node to x: %f, y: %f", this.node.x, this.node.y);
            this.board.getComponent("Board").hover(this);
