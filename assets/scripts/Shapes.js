@@ -97,7 +97,7 @@ var SHAPES = [
 
 
 function getShareAtIndex(index){
-    if(!index){
+    if(index == undefined){
         index = parseInt(Math.random() * SHAPES.length);
     }
  

@@ -2,6 +2,17 @@
 var Common = require("Common");
 var Transform = require("Transform");
 
+var RIGHT_LINES = [
+  [-4, 0, -3, -1, -2, -2, -1, -3, 0, -4],
+  [-4, 1, -3, 0, -2, -1, -1, -2, 0, -3, 1, -4],
+  [-4, 2, -3, 1, -2, 0, -1, -1, 0, -2, 1, -3, 2, -4],
+  [-4, 3, -3, 2, -2, 1, -1, 0, 0, -1, 1, -2, 2, -3, 3, -4],
+  [-4, 4, -3, 3, -2, 2, -1, 1, 0, 0, 1, -2, 2, -2, 3, -3, 4, -4],
+  [-3, 4, -2, 3, -1, 2, 0, 1, 1, 0, 2, -1, 3, -2, 4, -3],
+  [-2, 4, -1, 3, 0, 2, 1, 1, 2, 0, 3, -1, 4, -2],
+  [-1, 4, 0, 3, 1, 2, 2, 1, 3, 0, 4, -1],
+  [0, 4, 1, 3, 2, 2, 3, 1, 4, 0]
+];
 
 var Board = cc.Class({
     extends: cc.Component,
@@ -75,10 +86,87 @@ var Board = cc.Class({
                 hexagon.setHover(false);
             }
 
-            //TODO 分数计算
+            
+            var connectedLines = this.findLines();
+            //clear lines
+            connectedLines.forEach(line => {
+                line.forEach (blockKey => {
+                    //将已经消除的行消除掉
+                    var block =  this._hexgaons[blockKey].getComponent("Hexagon");
+                    block.clear();
+
+                    //TODO 计算积分 
+                });
+            });
         }
 
         return matched;
+    },
+    findMultipleLines: function(map){
+        var lines = [];
+        var lineIndex = 0;
+       
+        
+        for(var i = -Common.BOARD_RADIUS; i <= Common.BOARD_RADIUS; i++){
+            var singleLine = [];
+            var isConnected = true;
+            for(var j = -Common.BOARD_RADIUS; j <= Common.BOARD_RADIUS; j++){
+                var point = map(i, j);
+                var key = this.buildKey(point.x, point.y);
+                var block = this._hexgaons[key] ? this._hexgaons[key].getComponent("Hexagon") : null;
+                
+                if(block){
+                    singleLine.push(key);
+                    if(block.isEmpty()){
+                        isConnected = false;
+                        break;
+                    }
+                }
+
+            
+            }
+
+            if(isConnected){
+                lines.push(singleLine);
+            }
+        }
+
+        return lines;
+    },
+
+    findLines: function(){
+        var leftLines = this.findMultipleLines(function(i, j){
+            return {x: i, y: j};
+        });
+
+        var horizontalLings = this.findMultipleLines(function(i, j){
+            return {x: j, y: i};
+        });
+
+        
+        var rightLines = [];
+        RIGHT_LINES
+        .forEach( (line) => {
+            var i = 0;
+            var tmp = [];
+            for(; i < line.length; i+=2){
+                var key = this.buildKey(line[i], line[i + 1]);
+                var block = this._hexgaons[key] ? this._hexgaons[key].getComponent("Hexagon") : null;
+                tmp.push(key);
+                if(block && block.isEmpty()){
+                     break;
+                }
+            }
+
+            if(i == line.length){
+                rightLines.push(tmp);   
+            }
+        });
+ 
+        var lines = leftLines.concat(horizontalLings, rightLines);
+        cc.log(lines.toString());
+
+        return lines;
     },
     /**
      * 检查图片是否能够放入棋盘
@@ -180,13 +268,21 @@ var Board = cc.Class({
                 var key = this.buildKey(i, j);
                 this._hexgaons[key] = sprite;
 
-                var reverseIndex = Transform.valueToPoint(posiiton.x, posiiton.y, {scale: scale});
+                // var reverseIndex = Transform.valueToPoint(posiiton.x, posiiton.y, {scale: scale});
                 // cc.log("index: %d,%d <--> reverseIndex: %d, %d", i, j, reverseIndex.x, reverseIndex.y);
+
+                var labelNode = new cc.Node();
+                var label = labelNode.addComponent(cc.Label);
+                label.string = i + "," + j;
+                label.fontSize = 12;
+                label.verticalAlign = cc.Label.CENTER;
+                label.horizontalAlign = cc .Label.CENTER;
+                label.lineHeight = 20;
+                labelNode.x = posiiton.x;
+                labelNode.y = posiiton.y;
+                this.node.addChild(labelNode);
             }
         }
-
-        // this.node.active = false;
-        
     }
 
 

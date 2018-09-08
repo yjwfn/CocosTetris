@@ -35,7 +35,7 @@ cc.Class({
         
     },
     recreate: function(){
-        var shape = Shapes.getShareAtIndex();
+        var shape = Shapes.getShareAtIndex(0);
         this.node.removeAllChildren(true);
         for(var pointIndex = 0; pointIndex < shape.points.length; pointIndex += 2){
             var points = shape.points;

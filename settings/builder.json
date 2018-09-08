@@ -25,13 +25,12 @@
     "REMOTE_SERVER_ROOT": "",
     "orientation": "portrait"
   },
-  "renderMode": "0",
-  "startScene": "ed50f5c3-cb32-452d-8383-ea717046a90c",
+  "startScene": "386fa099-95b5-4f7e-b5cb-2132c1f5c488",
   "title": "CocosTetris",
   "webOrientation": "auto",
   "wechatgame": {
     "REMOTE_SERVER_ROOT": "",
-    "appid": "wx6ac3f5090a6b99c5",
+    "appid": "wx3385ba7cfb0ca4a2",
     "isSubdomain": false,
     "orientation": "portrait",
     "subContext": ""

@@ -19,6 +19,10 @@ var Hexagon = cc.Class({
     isEmpty: function(){
         return this.color == COLORS.GRAY;
     },
+    clear: function(){
+        this.color = COLORS.GRAY;
+        this.setSpriteFrameByColor(COLORS.GRAY);
+    },
     setHover: function(hover){
         if(hover){
             this.node.opacity = 100;
@@ -26,6 +30,7 @@ var Hexagon = cc.Class({
             this.node.opacity = 255;
         }
     },
+
     
     setSpriteFrameByColor: function(color){
         if(color){
